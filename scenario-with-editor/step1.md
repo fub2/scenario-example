@@ -1,19 +1,37 @@
 The following snippet can be copied into the editor:
 
 <pre class="file" data-filename="app.js" data-target="replace">var http = require('http');
-var requestListener = function (req, res) {
-  res.writeHead(200);
-  res.end('Hello, World!');
-}
+---
+#This file is used as InfraSIM configuration file
+name: first-infrasim-node
 
-var server = http.createServer(requestListener);
-server.listen(3000, function() { console.log("Listening on port 3000")});
+type: dell_r730
+
+compute:
+
+    cpu:
+        type: Haswell
+
+    memory:
+        size: 1024
+
+    storage_backend:
+        -
+            type: ahci
+            max_drive_per_controller: 6
+            drives:
+
+            -
+                size: 8
+
+    networks:
+        -
+            network_mode: nat
+            network_name: dummy0
+            device: e1000
+            mac: 00:60:16:0d:7d:2c
 </pre>
 
-Code can be executed with the syntax `node app.js`{{execute}}
+Code can be executed with the syntax `sudo infrasim config add 1st-dell-r730 infrasim.yml`{{execute}}
 
-The following will automatically be turned into a link and proxied to port 3000 -  http://[[CLIENT_SUBDOMAIN]]-3000-[[KATACODA_HOST]].environments.katacoda.com/
-
-In a multi-host environment, such as Docker, use HOST_SUBDOMAIN instead of CLIENT_SUBDOMAIN.
-
-Live example at https://www.katacoda.com/courses/nodejs/playground
+The following will automatically saved one valid configuration.
